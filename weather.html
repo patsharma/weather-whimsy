@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Weather Checker</title>
+    <style>
+        body {
+            background-color: #f0f8ff; /* Light blue background */
+            color: #333; /* Dark text color */
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            color: #ff4500; /* Orange color for the heading */
+        }
+        button {
+            background-color: #4caf50; /* Green background for the button */
+            color: white; /* White text color for the button */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+        #loading {
+            display: none;
+            font-size: 20px;
+            color: #ff4500; /* Orange color for loading text */
+        }
+        #weather {
+            font-size: 20px;
+            color: #333; /* Dark text color for weather info */
+        }
+        #loadingBarContainer {
+            display: none;
+            width: 100%;
+            background-color: #ddd;
+            margin-top: 10px;
+        }
+        #loadingBar {
+            width: 0;
+            height: 30px;
+            background-color: #4caf50;
+            transition: width 10s; /* Smooth animation */
+            animation: colorChange 10s infinite; /* Color change animation */
+        }
+        @keyframes colorChange {
+            0% { background-color: #4caf50; }
+            25% { background-color: #ff4500; }
+            50% { background-color: #ffeb3b; }
+            75% { background-color: #2196f3; }
+            100% { background-color: #4caf50; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Intelligent Weather Checker</h1>
+        <button onclick="checkWeather()">Check Weather</button>
+        <div id="loading">Loading...</div>
+        <div id="loadingBarContainer">
+            <div id="loadingBar"></div>
+        </div>
+        <div id="weather"></div>
+    </div>
+
+    <script>
+        function checkWeather() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('loadingBarContainer').style.display = 'block';
+            document.getElementById('weather').innerHTML = '';
+
+            const loadingBar = document.getElementById('loadingBar');
+            loadingBar.style.width = '0%';
+
+            const comments = [
+                "Checking the clouds...",
+                "Looking at the sky...",
+                "Feeling the breeze...",
+                "Measuring the temperature...",
+                "Analyzing the weather patterns...",
+                "Predicting the sunshine..."
+            ];
+
+            let commentIndex = 0;
+            const commentInterval = setInterval(() => {
+                if (commentIndex < comments.length) {
+                    document.getElementById('loading').innerHTML = comments[commentIndex];
+                    commentIndex++;
+                } else {
+                    clearInterval(commentInterval);
+                }
+            }, 2000);
+
+            // Simulate an API call with a timeout
+            setTimeout(() => {
+                loadingBar.style.width = '100%';
+            }, 100);
+
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('loadingBarContainer').style.display = 'none';
+                document.getElementById('weather').innerHTML = "Look outside!";
+            }, 10000); // Adjusted to match the new animation duration
+        }
+    </script>
+</body>
+</html>
